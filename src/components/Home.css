@@ -11,6 +11,9 @@
   position: relative;
   margin: 10rem 20rem;
 }
+.wd {
+  width: 85%;
+}
 
 /*.homepage > .button {
   background: #1877f2;

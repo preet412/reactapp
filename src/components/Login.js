@@ -37,7 +37,7 @@ const Login = () => {
         Login
       </Link>
       <div>Or</div>
-      <Link to="/signup" className="btn btn-primary">
+      <Link to="/Signup" className="btn btn-primary">
         Signup
       </Link>
     </div>

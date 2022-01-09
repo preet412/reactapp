@@ -26,7 +26,7 @@ const Cart = () => {
         <div className="row justify-content-center">
           <div className="col-12">
             <h5>
-              cart ({totalUniqueItems}) total Items:({totalItems})
+              Items ({totalUniqueItems}) total Items:({totalItems})
             </h5>
             <table className="table table-light table-hover m-0">
               <tbody>
@@ -38,7 +38,7 @@ const Cart = () => {
                   <td> </td>
                 </tr>
                 {items.map((item, index) => {
-                  console.log(items);
+                  //console.log(items);
                   return (
                     <tr key={index}>
                       <td>

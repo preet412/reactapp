@@ -1,4 +1,4 @@
-//import React from "react";
+import React from "react";
 //import "./App.css";
 //import  "./node_modules/dist/css/bootstrap.min.css";
 //import Data from "./components/Data";
@@ -25,6 +25,8 @@ function App() {
     </CartProvider>
 
     /*<CartProvider>
+    
+  
           <Items />
           <Cart />
            <Home />

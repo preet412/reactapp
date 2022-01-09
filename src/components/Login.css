@@ -7,6 +7,7 @@
   padding: 1rem;
   align-items: center;
   text-align: center;
+  margin: 15rem 30rem;
 }
 
 .login > input {
@@ -20,7 +21,7 @@
   font-size: 1rem;
 }
 
-.login > .button {
+/*.login > .button {
   background: #1877f2;
   border: 1px solid #1877f2;
   color: #fff;
@@ -30,4 +31,4 @@
   border-radius: 8px;
   outline: none;
   cursor: pointer;
-}
+}*/

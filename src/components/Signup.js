@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Signup.css";
+//import axios from "axios";
 
 const Signup = () => {
   const [user, setUser] = useState({
@@ -17,6 +18,16 @@ const Signup = () => {
       [name]: value,
     });
   };
+
+  /*const signup = () => {
+    const { name, email, password, confirmPassword } = user;
+    if (name && email && password && password === confirmPassword) {
+      //alert("posted");
+      axios.post("localhost:9002/signup", user).then((res) => console.log(res));
+    } else {
+      alert("inavalid input");
+    }
+  };*/
   return (
     <>
       <div className="signup">
@@ -55,7 +66,7 @@ const Signup = () => {
           Login
         </Link>
         <div>Or</div>
-        <Link to="/login" className="btn btn-primary">
+        <Link to="/Login" className="btn btn-primary">
           Signup
         </Link>
       </div>
