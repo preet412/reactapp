@@ -6,7 +6,7 @@ import Products from "./components/Products.js";
 import Items from "./components/Items";
 import Cart from "./components/Cart";
 import { CartProvider } from "react-use-cart";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home.js";
 import Signup from "./components/Signup.js";
 import Login from "./components/Login.js";
@@ -26,6 +26,7 @@ function App() {
 
     /*<CartProvider>
     
+        <PrivateRoute path="/onlyAuthorizedAllowedHere/" component={Login} />
   
           <Items />
           <Cart />

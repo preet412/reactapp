@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 const Products = (props) => {
   const { addItem } = useCart();
   //console.log(addItem);
+
+  const isLoggedIn = "";
+  //const comp;
   return (
     <div className="col=11 col-md-6 col-lg-3 mx-0 mb-4">
       <div className="card p-0 overflow-hidden h-100 shadow">
@@ -17,8 +20,16 @@ const Products = (props) => {
             to="/Cart"
             className="btn btn-success"
             onClick={() => {
-              console.log(props.item);
-              addItem(props.item);
+              //console.log(props.item);
+              if (isLoggedIn) {
+                alert(isLoggedIn + "if");
+                //comp=   <h1>{this.state.isLoggedIn}</h1>
+              } else {
+                alert(isLoggedIn + "else");
+                // comp = addItem(props.item);
+              }
+
+              //addItem(props.item);
             }}
           >
             Add to Cart

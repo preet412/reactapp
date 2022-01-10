@@ -8,27 +8,13 @@ const Home = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="">
-          <NavLink to="/">Home</NavLink>
-        </div>
-        <div className="d-flex">
-          <NavLink
-            to=""
-            isActive={(match, location) => {
-              if (!match) {
-                return false;
-              }
-
-              // only consider an event active if its event id is an odd number
-              const eventID = parseInt(match.params.eventID);
-              return !isNaN(eventID) && eventID % 2 === 1;
-            }}
-            className="btn btn-primary ms-2"
-          >
+        <div className="wd">Home</div>
+        <div className="col-md-2">
+          <NavLink to="/Login" className="btn btn-primary ms-2">
             Login
           </NavLink>
 
-          <Link to="/Login" className="btn btn-primary ms-2">
+          <Link to="/Signup" className="btn btn-primary ms-2">
             Signup
           </Link>
         </div>
@@ -50,18 +36,6 @@ const Home = () => {
           })}
         </div>
       </section>
-      {/*<div className="homepage text-center">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <Link to="/signup" className="btn btn-primary ms-2">
-            Signup
-          </Link>
-          <Link to="/login" className="btn btn-primary ms-2">
-            Login
-          </Link>
-        </nav>
-        <h2>hello</h2>
-        <div className="btn btn-primary ms-2">logout</div>
-        </div>*/}
     </>
   );
 };
