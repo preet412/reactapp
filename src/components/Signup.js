@@ -34,9 +34,9 @@ class Signup extends React.Component {
       input["email"] = "";
       input["password"] = "";
       input["confirm_password"] = "";
-      this.setState({ input: input });
-
-      alert("Demo Form is submitted");
+      //this.setState({ input: input });
+      window.location.href = "./Login";
+      // alert("Form is submitted");
     }
   }
 
@@ -118,7 +118,7 @@ class Signup extends React.Component {
               name="username"
               value={this.state.input.username}
               onChange={this.handleChange}
-              class="form-control"
+              className="form-control"
               placeholder="Enter username"
               id="username"
             />
@@ -130,7 +130,7 @@ class Signup extends React.Component {
               name="email"
               value={this.state.input.email}
               onChange={this.handleChange}
-              class="form-control"
+              className="form-control"
               placeholder="Enter email"
               id="email"
             />
@@ -142,7 +142,7 @@ class Signup extends React.Component {
               name="password"
               value={this.state.input.password}
               onChange={this.handleChange}
-              class="form-control"
+              className="form-control"
               placeholder="Enter password"
               id="password"
             />
@@ -154,7 +154,7 @@ class Signup extends React.Component {
               name="confirm_password"
               value={this.state.input.confirm_password}
               onChange={this.handleChange}
-              class="form-control"
+              className="form-control"
               placeholder="Enter confirm password"
               id="confirm_password"
             />
@@ -163,7 +163,7 @@ class Signup extends React.Component {
               {this.state.errors.confirm_password}
             </div>
 
-            <input type="submit" value="Signup" class="btn btn-primary" />
+            <input type="submit" value="Signup" className="btn btn-primary" />
             <div>
               Already have an account ?here
               <Link to="/Login">Login</Link>

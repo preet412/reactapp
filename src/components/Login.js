@@ -1,10 +1,11 @@
 import React from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { Items } from "./Items";
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       input: {},
       errors: {},
@@ -35,16 +36,17 @@ class Login extends React.Component {
       console.log(this.state);
 
       let input = {};
-
       input["email"] = "";
       input["password"] = "";
-      this.setState({ input: input });
+      //this.setState({ input: input });
+      window.location.href = "./Items";
 
-      // alert("Demo Form is submitted");
+      //alert("Form is submitted");
     }
   }
 
   Login() {
+    //let navigate = useNavigate();
     let input = this.state.input;
     let errors = {};
     let isValid = true;
@@ -60,15 +62,19 @@ class Login extends React.Component {
         isValid = false;
         errors["email"] = "Please enter valid email address.";
       }
-    } else if (!input["password"]) {
+    }
+    if (!input["password"]) {
       isValid = false;
       errors["password"] = "Please enter your password.";
     } else if (typeof input["password"] !== "undefined") {
       if (input["password"].length < 8) {
         isValid = false;
         errors["password"] = "Please add at least 8 charachter.";
+      } else {
+        // this.props.history.push("/Items");
+        // alert("hii");
+        //const navigate ={navigate("/Items")};
       }
-    } else {
     }
 
     this.setState({
@@ -89,7 +95,7 @@ class Login extends React.Component {
               name="email"
               value={this.state.input.email}
               onChange={this.handleChange}
-              class="form-control"
+              className="form-control"
               placeholder="Enter email"
               id="email"
             />
@@ -101,14 +107,18 @@ class Login extends React.Component {
               name="password"
               value={this.state.input.password}
               onChange={this.handleChange}
-              class="form-control"
+              className="form-control"
               placeholder="Enter password"
               id="password"
             />
 
             <div className="text-danger">{this.state.errors.password}</div>
 
-            <input type="submit" value="Login" class="btn btn-primary btn-sm" />
+            <input
+              type="submit"
+              value="Login"
+              className="btn btn-primary btn-sm"
+            />
 
             <div>
               If you are not exist?
