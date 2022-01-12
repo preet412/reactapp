@@ -42,6 +42,20 @@ class Login extends React.Component {
       window.location.href = "./Items";
 
       //alert("Form is submitted");
+
+      // async function login() {
+      //   //let signup = { username, email, password, confirmPassword };
+      //   let result = await fetch("http://localhost:8080/api/user/", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Accept: "application/json",
+      //     },
+      //     body: JSON.stringify(login),
+      //   });
+      //   result = await result.Json();
+      //   localStorage.setItem("user-info", JSON.stringify(result));
+      //   window.location.href = "./Items";
     }
   }
 

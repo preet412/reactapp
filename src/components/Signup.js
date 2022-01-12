@@ -8,12 +8,21 @@ class Signup extends React.Component {
     this.state = {
       input: {},
       errors: {},
+      apiResponse: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  // callAPI() {
+  //   fetch("http://localhost:8080/api/user/")
+  //     .then((res) => res.test())
+  //     .then((res) => this.setState({ apiResponse: res }));
+  // }
 
+  // componentWillMount() {
+  //   this.callAPI();
+  // }
   handleChange(event) {
     let input = this.state.input;
     input[event.target.name] = event.target.value;
@@ -35,10 +44,65 @@ class Signup extends React.Component {
       input["password"] = "";
       input["confirm_password"] = "";
       //this.setState({ input: input });
-      window.location.href = "./Login";
+
+      // let username,
+      //   email,
+      //   password,
+      //   confirmPassword = "";
+      // let result = await fetch("http://localhost:8080/api/user/", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Accept: "application/json",
+      //   },
+      //   body: JSON.stringify(signup),
+      // });
+      // result = await result.Json();
+      // localStorage.setItem("user-info", JSON.stringify(result));
+      //   window.location.href = "./Login";
+      //window.location.href = "./Login";
       // alert("Form is submitted");
+      // async function signup() {
+
+      // }
     }
   }
+
+  // callSignUpAPI() {
+  //   //alert("in api");
+  //   let name,
+  //     email,
+  //     password,
+  //     confirmPassword = "";
+  //   name = this.state.input["username"];
+  //   email = this.state.input["email"];
+  //   password = this.state.input["password"];
+  //   confirmPassword = this.state.input["confirm_password"];
+  //   let param = {
+  //     name,
+  //     email,
+  //     password,
+  //   };
+  //   console.log(JSON.stringify(param));
+  //   fetch("http://localhost:8080/api/user", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(param),
+  //   })
+  //     .then((r) => r.json())
+  //     .then((res) => {
+  //       if (res) {
+  //         alert(res);
+  //         console.log("success");
+  //       }
+  //     });
+  //   //console.log(result);
+  //   //result = result.Json();
+  //   //alert(JSON.stringify(result));
+  //   //localStorage.setItem("user_result", JSON.stringify(result));
+  // }
 
   signup() {
     let input = this.state.input;
@@ -99,6 +163,26 @@ class Signup extends React.Component {
         errors["password"] = "Passwords don't match.";
       }
     }
+    //this.callSignUpAPI();
+
+    fetch("http://localhost:8080/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: input.name,
+        email: input.email,
+        password: input.password,
+      }),
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        if (res) {
+          alert(res);
+          console.log("success");
+        }
+      });
 
     this.setState({
       errors: errors,
