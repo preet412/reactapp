@@ -1,11 +1,17 @@
-var express = Noderequire("express");
-var app = express();
-var db = Noderequire("./database.js");
-var md5 = Noderequire("md5");
+var express = require("express");
+var cors = require("cors");
 
-var bodyParser = Noderequire("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+var app = express();
+var db = require("./database.js");
+var md5 = require("md5");
+
+// var bodyParser = require("body-parser");
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(cors());
 
 // Server port
 var HTTP_PORT = 8080;
@@ -17,7 +23,7 @@ app.listen(HTTP_PORT, () => {
 // app.get("/", (req, res, next) => {
 //   res.json({ message: "Ok" });
 // });
-app.get("/api/users", (req, res, next) => {
+app.get("/api/getuserlist", (req, res, next) => {
   var sql = "select * from user";
   var params = [];
   db.all(sql, params, (err, rows) => {
@@ -32,7 +38,7 @@ app.get("/api/users", (req, res, next) => {
   });
 });
 
-app.get("/api/user/:id", (req, res, next) => {
+app.get("/api/getuser/:id", (req, res, next) => {
   var sql = "select * from user where id = ?";
   var params = [req.params.id];
   db.get(sql, params, (err, row) => {
@@ -47,7 +53,7 @@ app.get("/api/user/:id", (req, res, next) => {
   });
 });
 
-app.post("/api/user/", (req, res, next) => {
+app.post("/api/adduser/", (req, res, next) => {
   var errors = [];
   if (!req.body.password) {
     errors.push("No password specified");
@@ -71,15 +77,73 @@ app.post("/api/user/", (req, res, next) => {
       res.status(400).json({ error: err.message });
       return;
     }
-    res.json({
+    res.send({
       message: "success",
-      data: data,
-      id: this.lastID,
     });
   });
 });
 
-app.patch("/api/user/:id", (req, res, next) => {
+app.post("/api/authentics/", (req, res, next) => {
+  var errors = [];
+  if (!req.body.password) {
+    errors.push("No password specified");
+  }
+  if (!req.body.email) {
+    errors.push("No email specified");
+  }
+  if (errors.length) {
+    res.status(400).json({ error: errors.join(",") });
+    return;
+  }
+  console.log(req.body);
+  var data = {
+    email: req.body.email,
+    password: md5(req.body.password),
+  };
+  var sql = "SELECT * FROM user WHERE email = ? and password= ?";
+  var params = [data.email, data.password];
+  db.all(sql, params, function (err, result) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    console.log(JSON.stringify(result));
+    res.send({
+      //message: "success msg ",
+      //+ result.json(),
+      message: "success ",
+    });
+  });
+});
+app.post("/api/checkEmail/", (req, res, next) => {
+  db.run(
+    "SELECT * FROM user WHERE email = ?",
+    req.params.email,
+    function (err, result) {
+      if (err) {
+        res.status(400).json({ error: res.message });
+        return;
+      }
+      res.json({ message: "check email", changes: this.changes });
+    }
+  );
+});
+app.post("/api/checkSignIn/", (req, res, next) => {
+  db.run(
+    "SELECT * FROM user WHERE email = ? and password= ",
+    req.params.email,
+    md5(req.params.password),
+    function (err, result) {
+      if (err) {
+        res.status(400).json({ error: res.message });
+        return;
+      }
+      res.json({ message: "User details", changes: this.changes });
+    }
+  );
+});
+
+app.patch("/api/adduser/:id", (req, res, next) => {
   var data = {
     name: req.body.name,
     email: req.body.email,
@@ -106,7 +170,7 @@ app.patch("/api/user/:id", (req, res, next) => {
   );
 });
 
-app.delete("/api/user/:id", (req, res, next) => {
+app.delete("/api/deleteuser/:id", (req, res, next) => {
   db.run(
     "DELETE FROM user WHERE id = ?",
     req.params.id,
@@ -115,11 +179,48 @@ app.delete("/api/user/:id", (req, res, next) => {
         res.status(400).json({ error: res.message });
         return;
       }
-      res.json({ message: "deleted", changes: this.changes });
+      res.json({ message: "user deleted", changes: this.changes });
     }
   );
 });
+app.delete("/api/deleteAllUser", (req, res, next) => {
+  db.run("DELETE FROM user", function (err, result) {
+    if (err) {
+      res.status(400).json({ error: res.message });
+      return;
+    }
+    res.json({ message: "ALl user deleted", changes: this.changes });
+  });
+});
 
+app.post("/api/authentics/", (req, res, next) => {
+  var errors = [];
+  if (!req.body.password) {
+    errors.push("No password specified");
+  }
+  if (!req.body.email) {
+    errors.push("No email specified");
+  }
+  if (errors.length) {
+    res.status(400).json({ error: errors.join(",") });
+    return;
+  }
+  var data = {
+    email: req.body.email,
+    password: md5(req.body.password),
+  };
+  var sql = "SELECT * FROM user WHERE email = ? and password= ?";
+  var params = [data.email, data.password];
+  db.run(sql, params, function (err, result) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.send({
+      message: res,
+    });
+  });
+});
 // Insert here other API endpoints
 
 // Default response for any other request
